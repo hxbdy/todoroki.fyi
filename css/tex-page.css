@@ -16,27 +16,6 @@
   visibility: visible;
 }
 
-/* ページ冒頭の解説 */
-.tex-intro {
-  margin: 0 0 8px;
-  padding: 14px 16px;
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  line-height: 1.9;
-}
-.tex-intro p {
-  margin: 0 0 10px;
-}
-.tex-intro p:last-child {
-  margin-bottom: 0;
-}
-.tex-intro__ttl {
-  font-size: 15px;
-  font-weight: bold;
-  margin: 0 0 8px;
-}
-
 /* 収録範囲・PDF版へのリンク */
 .tex-page__links {
   font-size: 13px;
@@ -45,14 +24,4 @@
 }
 .tex-page__links a {
   color: #008080;
-}
-
-/*スマートフォン向け*/
-@media only screen and (max-width: 480px) {
-  .tex-intro {
-    font-size: 13px;
-  }
-  .tex-intro__ttl {
-    font-size: 14px;
-  }
 }
