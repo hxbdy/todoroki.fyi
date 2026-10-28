@@ -1,0 +1,50 @@
+name: 📏 Check deploy size
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: read
+
+jobs:
+  deploy-size:
+    name: deploy-size
+    runs-on: ubuntu-latest
+    env:
+      # サーバのアップロード上限は 100MB。単位の解釈差に備え 10^6 基準で判定する
+      LIMIT_BYTES: 100000000
+      WARN_BYTES: 90000000
+    steps:
+    - name: 🚚 Get PR code
+      uses: actions/checkout@v6
+
+    - name: 📏 Measure deploy size
+      run: |
+        # main.yml の FTP-Deploy-Action が除外する .git* と node_modules を除く
+        total=$(find . \( -name '.git*' -o -name node_modules \) -prune -o -type f -printf '%s\n' | awk '{s+=$1} END {print s+0}')
+        mb() { awk -v b="$1" 'BEGIN {printf "%.1f", b/1000000}'; }
+
+        {
+          echo "## デプロイ容量"
+          echo "| 項目 | MB |"
+          echo "| --- | ---: |"
+          echo "| 合計 | $(mb "$total") |"
+          echo "| 上限 | $(mb "$LIMIT_BYTES") |"
+          echo "| 残り | $(mb $((LIMIT_BYTES - total))) |"
+          echo
+          echo "### 容量の大きいディレクトリ"
+          echo '```'
+          find . \( -name '.git*' -o -name node_modules \) -prune -o -type f -printf '%h %s\n' \
+            | awk '{split($1,p,"/"); d=(p[2]==""?".":p[2]); s[d]+=$2} END {for (k in s) printf "%.1f MB\t%s\n", s[k]/1000000, k}' \
+            | sort -rn | head -5
+          echo '```'
+        } | tee -a "$GITHUB_STEP_SUMMARY"
+
+        if [ "$total" -gt "$LIMIT_BYTES" ]; then
+          echo "::error::デプロイ対象が $(mb "$total") MB で、上限 $(mb "$LIMIT_BYTES") MB を超えています"
+          exit 1
+        elif [ "$total" -gt "$WARN_BYTES" ]; then
+          echo "::warning::デプロイ対象が $(mb "$total") MB で、上限 $(mb "$LIMIT_BYTES") MB に近づいています"
+        fi
+        echo "deploy size: $(mb "$total") MB"
