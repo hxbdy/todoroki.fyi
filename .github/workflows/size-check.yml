@@ -39,7 +39,7 @@ jobs:
             | awk '{split($1,p,"/"); d=(p[2]==""?".":p[2]); s[d]+=$2} END {for (k in s) printf "%.1f MB\t%s\n", s[k]/1000000, k}' \
             | sort -rn | head -5
           echo '```'
-        } >> "$GITHUB_STEP_SUMMARY"
+        } | tee -a "$GITHUB_STEP_SUMMARY"
 
         if [ "$total" -gt "$LIMIT_BYTES" ]; then
           echo "::error::デプロイ対象が $(mb "$total") MB で、上限 $(mb "$LIMIT_BYTES") MB を超えています"
