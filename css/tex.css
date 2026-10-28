@@ -1,5 +1,5 @@
 /*------------------------------------------
- *  TeX表示ページ（tex.html）
+ *  解答例ページ（kaitou/）
  *------------------------------------------*/
 .tex-container {
   display: flex;
@@ -24,6 +24,15 @@
 .tex-page__meta a {
   color: #008080;
 }
+/* 収録範囲・PDF版へのリンク */
+.tex-page__links {
+  font-size: 13px;
+  text-align: center;
+  padding: 4px 12px 0;
+}
+.tex-page__links a {
+  color: #008080;
+}
 .tex-page__body {
   padding: 8px 24px 0;
 }
@@ -38,23 +47,17 @@
   color: #008080;
 }
 
-/* 数式が組み上がるまでは TeX ソースがちらつくので隠しておく */
-.tex-page__body .tex-math,
-.tex-page__body .tex-intertext,
-.tex-page__body .tex-text {
+/* 数式が組み上がるまでは TeX ソースがちらつくので隠しておく。
+   文章（.tex-intertext / .tex-text）は JS を切っていても読めるよう常に表示する。 */
+.tex-page__body .tex-math {
   visibility: hidden;
 }
-.is-typeset .tex-page__body .tex-math,
-.is-typeset .tex-page__body .tex-intertext,
-.is-typeset .tex-page__body .tex-text {
+.is-typeset .tex-page__body .tex-math {
   visibility: visible;
 }
-
-/* 書名（\begin{flushleft}） */
-.tex-source-line {
-  font-size: 13px;
-  color: #555;
-  margin: 0 0 12px;
+/* JS が無効なら数式も TeX ソースのまま見せる（隠したままにはしない） */
+.no-js .tex-page__body .tex-math {
+  visibility: visible;
 }
 
 /* 章・節・BASIC などの見出し（\begin{center}） */
@@ -95,34 +98,11 @@
   line-height: 1.8;
 }
 
-.tex-empty {
-  color: #999;
-  font-size: 13px;
-  margin: 6px 0;
-}
-
 /* \clearpage */
 .tex-pagebreak {
   border: 0;
   border-top: 1px dashed #bbb;
   margin: 32px 0;
-}
-
-.tex-loading {
-  text-align: center;
-  color: #777;
-  padding: 40px 0;
-}
-.tex-error-title {
-  font-size: 16px;
-  text-align: center;
-  margin-top: 24px;
-}
-.tex-error-detail {
-  font-size: 13px;
-  line-height: 1.8;
-  color: #555;
-  word-break: break-all;
 }
 
 /* 余白は .tex-math の padding で取るので mjx-container 側の margin は消す */

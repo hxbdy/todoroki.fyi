@@ -10,7 +10,7 @@
 
   var MATHJAX_CDN = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
 
-  // JS が動いている間だけ .tex-math を組版待ちにする（no-js は tex-page.css で常時表示）
+  // JS が動いている間だけ .tex-math を組版待ちにする（no-js は tex.css で常時表示）
   document.documentElement.classList.remove('no-js');
 
   window.MathJax = {
