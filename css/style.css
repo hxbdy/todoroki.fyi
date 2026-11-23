@@ -660,3 +660,95 @@ tr{
     width: 9%;
   }
 }
+
+/* 学生制作サイト */
+.p-sites{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 var(--padding-inline) 24px;
+}
+.p-sites__list{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+@media screen and (min-width: 768px){
+  .p-sites__list{
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media screen and (min-width: 1024px){
+  .p-sites__list{
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.p-sites__empty{
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 14px;
+}
+.p-sites__action{
+  text-align: center;
+  margin-top: 8px;
+}
+.p-sites__btn{
+  display: inline-block;
+  padding: 8px 24px;
+  background-color: var(--color-accent);
+  color: var(--color-font-btn);
+  text-decoration: none;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.c-site-card{
+  display: flex;
+  flex-direction: column;
+  background-color: #fff;
+  border: 1px solid #707070;
+  color: var(--color-font-base);
+  text-decoration: none;
+  overflow: hidden;
+}
+.c-site-card:hover,
+.c-site-card:focus-visible{
+  border-color: #008080;
+}
+.c-site-card__thumb{
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background-color: #dcdcdc;
+}
+.c-site-card__body{
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px 14px;
+  line-height: 1.6;
+  flex: 1;
+}
+.c-site-card__title{
+  font-size: 16px;
+  font-weight: bold;
+}
+.c-site-card__summary{
+  font-size: 13px;
+}
+.c-site-card__meta{
+  font-size: 12px;
+  color: #555;
+}
+.c-site-card__external{
+  margin-top: auto;
+  padding-top: 6px;
+  font-size: 12px;
+  color: #008080;
+}
+.c-site-card__thumb--none{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 13px;
+}

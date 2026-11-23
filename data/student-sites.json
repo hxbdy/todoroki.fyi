@@ -1,0 +1,11 @@
+[
+  {
+    "id": "sample",
+    "title": "サンプルサイト(掲載例)",
+    "url": "https://example.com/",
+    "summary": "ここに制作者による一言紹介が表示されます。",
+    "author": "サンプル太郎",
+    "thumb": "./img/students/sample.svg",
+    "added": "2026-10-28"
+  }
+]
